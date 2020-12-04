@@ -87,11 +87,13 @@ class DictRecord(dict):
         """
         for key, val in target.items():
             if isinstance(val, DictRecord):
+                # Convert to dict and recurse
                 target[key] = val.as_dict()
             elif isinstance(val, dict):
-                target[key] = cls._convert_dict_records_to_dict(val)
-            else:
-                target[key] = val
+                # recurse into sub-dict
+                cls._convert_dict_records_to_dict(val)
+            # else:
+            #     target[key] = val
         return target
 
 
